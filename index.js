@@ -75,6 +75,12 @@ app.get('/users/:id', async (req, res) => {
   const user = await userCollection.findOne(query);
   res.send(user);
 });
+app.get('/students/:id', async (req, res) => {
+  const id = req.params.id;
+  const query = {_id: new ObjectId(id)};
+  const student = await studentCollection.findOne(query);
+  res.send(student);
+});
 app.get('/students', async (req, res) => {
   const students = await studentCollection.find().toArray();
   res.send(students);
