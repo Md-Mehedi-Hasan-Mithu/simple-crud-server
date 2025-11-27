@@ -69,6 +69,23 @@ async function run() {
       const result = await userCollection.updateOne(filter,updateDoc,options);
       res.send(result);
     });
+    app.put('/students/:id',async(req,res) =>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)};
+      const updateStudent = req.body;
+      console.log("Update student data",id,updateStudent);
+      const options = {upsert:true};
+      const updateDoc = {
+        $set:{
+          name:updateStudent.name,
+          email:updateStudent.email,
+          id:updateStudent.id
+        },
+      };
+      const result = await studentCollection.updateOne(filter,updateDoc,options);
+      res.send(result);
+    });
+  
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
